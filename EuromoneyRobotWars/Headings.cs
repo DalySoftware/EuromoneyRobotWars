@@ -4,7 +4,7 @@ public enum Headings { North = 0, East = 1, South = 2, West = 3 }
 
 public static class HeadingsHelper
 {
-    public static int Modulo(int a, int b)
+    private static int Modulo(int a, int b)
     {
         int c = a % b;
         if ((c < 0 && b > 0) || (c > 0 && b < 0))

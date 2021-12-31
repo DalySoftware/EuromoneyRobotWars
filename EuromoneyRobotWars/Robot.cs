@@ -1,5 +1,5 @@
 ﻿namespace EuromoneyRobotWars;
- 
+
 public class Robot : IRobot
 {
     private int x;
@@ -54,7 +54,7 @@ public class Robot : IRobot
     {
         Heading = HeadingsHelper.RotateHeadingAntiClockwise(Heading, 1);
     }
-        
+
     public void RotateRight()
     {
         Heading = HeadingsHelper.RotateHeadingClockwise(Heading, 1);

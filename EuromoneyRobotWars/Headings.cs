@@ -16,11 +16,11 @@ public class HeadingsHelper
 
     public static Headings RotateHeadingClockwise(Headings startingDirection, int turns)
     {
-        var startingAsInt = (int) startingDirection;
+        var startingAsInt = (int)startingDirection;
 
-        var newDirection = Modulo(startingAsInt + turns,  4);
+        var newDirection = Modulo(startingAsInt + turns, 4);
 
-        return (Headings) newDirection;
+        return (Headings)newDirection;
     }
 
     public static Headings RotateHeadingAntiClockwise(Headings startingDirection, int turns)

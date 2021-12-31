@@ -60,6 +60,7 @@ namespace RobotWarsTests
 
             Assert.AreEqual(expectedX, robot.X);
             Assert.AreEqual(expectedY, robot.Y);
+            Assert.AreEqual(expectedHeading, robot.Heading);
             Assert.AreEqual(expectedPenalties, robot.PenaltyCount);
         }
     }

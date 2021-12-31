@@ -1,32 +1,26 @@
 ﻿namespace EuromoneyRobotWars;
 
-public class Robot : IRobot
+public class Robot
 {
     private int x;
     private int y;
 
     public Headings Heading { get; private set; }
+    public int PenaltyCount { get; private set; }
 
-    public Robot(int x, int y)
+    public Robot(int x = 0, int y = 0, Headings heading = Headings.North)
     {
         X = x;
         Y = y;
+        Heading = heading;
     }
 
     public int X
     {
         get => x;
-        set
+        private set
         {
-            if (value < 0)
-            {
-                throw new InvalidGridPositionException($"X value {value} is less than 0");
-            }
-
-            if (value > 4)
-            {
-                throw new InvalidGridPositionException($"X value {value} is greater than 4");
-            }
+            GridHelper.ValidateXValue(value);
 
             x = value;
         }
@@ -34,17 +28,9 @@ public class Robot : IRobot
     public int Y
     {
         get => y;
-        set
+        private set
         {
-            if (value < 0)
-            {
-                throw new InvalidGridPositionException($"Y value {value} is less than 0");
-            }
-
-            if (value > 4)
-            {
-                throw new InvalidGridPositionException($"Y value {value} is greater than 4");
-            }
+            GridHelper.ValidateYValue(value);
 
             y = value;
         }
@@ -60,4 +46,29 @@ public class Robot : IRobot
         Heading = HeadingsHelper.RotateHeadingClockwise(Heading, 1);
     }
 
+    public void MoveForward()
+    {
+        try
+        {
+            switch (Heading)
+            {
+                case Headings.North:
+                    Y += 1;
+                    break;
+                case Headings.South:
+                    Y -= 1;
+                    break;
+                case Headings.East:
+                    X += 1;
+                    break;
+                case Headings.West:
+                    X -= 1;
+                    break;
+            }
+        }
+        catch (InvalidGridPositionException)
+        {
+            PenaltyCount++;
+        }
+    }
 }

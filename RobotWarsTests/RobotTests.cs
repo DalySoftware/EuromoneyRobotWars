@@ -1,54 +1,49 @@
 ﻿using EuromoneyRobotWars;
 using NUnit.Framework;
 
-namespace RobotWarsTests;
-
-[TestFixture]
-public class RobotTests
+namespace RobotWarsTests
 {
-    [Test]
-    public void SetX_ShouldThrowInvalidGridPositionException_WhenValueLessThan0()
+    [TestFixture]
+    public class RobotTests
     {
-        Robot robot = new(0, 0);
-        Assert.Throws<InvalidGridPositionException>(() => robot.X = -1);
-    }
+        [TestCase(0, 0, Headings.West, 1)]
+        [TestCase(0, 0, Headings.East, 0)]
+        [TestCase(0, 4, Headings.North, 1)]
+        [TestCase(0, 4, Headings.South, 0)]
+        [TestCase(4, 4, Headings.North, 1)]
+        [TestCase(4, 4, Headings.South, 0)]
+        [TestCase(4, 0, Headings.East, 1)]
+        [TestCase(4, 0, Headings.West, 0)]
+        public void MoveForwardPenaltyTests(int startingX, int startingY, Headings startingDirection, int expectedPenalties)
 
-    [Test]
-    public void SetX_ShouldThrowInvalidGridPositionException_WhenValueGreaterThan4()
-    {
-        Robot robot = new(0, 0);
-        Assert.Throws<InvalidGridPositionException>(() => robot.X = 5);
-    }
+        {
+            Robot robot = new(startingX, startingY, startingDirection);
 
-    [Test]
-    public void SetX_ShouldSetValue_WhenValueIs3()
-    {
-        Robot robot = new(0, 0);
-        robot.X = 3;
 
-        Assert.AreEqual(3, robot.X);
-    }
+            robot.MoveForward();
 
-    [Test]
-    public void SetY_ShouldThrowInvalidGridPositionEYception_WhenValueLessThan0()
-    {
-        Robot robot = new(0, 0);
-        Assert.Throws<InvalidGridPositionException>(() => robot.Y = -1);
-    }
 
-    [Test]
-    public void SetY_ShouldThrowInvalidGridPositionEYception_WhenValueGreaterThan4()
-    {
-        Robot robot = new(0, 0);
-        Assert.Throws<InvalidGridPositionException>(() => robot.Y = 5);
-    }
+            Assert.AreEqual(robot.PenaltyCount, expectedPenalties);
+        }
 
-    [Test]
-    public void SetY_ShouldSetValue_WhenValueIs3()
-    {
-        Robot robot = new(0, 0);
-        robot.Y = 3;
+        [TestCase(0, 0, Headings.West, 0, 0)]
+        [TestCase(0, 0, Headings.East, 1, 0)]
+        [TestCase(0, 4, Headings.North, 0, 4)]
+        [TestCase(0, 4, Headings.South, 0, 3)]
+        [TestCase(4, 4, Headings.North, 4, 4)]
+        [TestCase(4, 4, Headings.South, 4, 3)]
+        [TestCase(4, 0, Headings.East, 4, 0)]
+        [TestCase(4, 0, Headings.West, 3, 0)]
+        public void MoveForwardPositionTests(int startingX, int startingY, Headings startingDirection, int expectedX, int expectedY)
+        {
+            Robot robot = new(startingX, startingY, startingDirection);
 
-        Assert.AreEqual(3, robot.Y);
+
+            robot.MoveForward();
+
+
+            Assert.AreEqual(expectedX, robot.X);
+            Assert.AreEqual(expectedY, robot.Y);
+        }
     }
 }

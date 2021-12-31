@@ -2,7 +2,7 @@
 
 public enum Headings { North = 0, East = 1, South = 2, West = 3 }
 
-public class HeadingsHelper
+public static class HeadingsHelper
 {
     public static int Modulo(int a, int b)
     {

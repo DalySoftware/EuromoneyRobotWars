@@ -71,4 +71,27 @@ public class Robot
             PenaltyCount++;
         }
     }
+
+    public void ExecuteInstructions(string instructions)
+    {
+        foreach (var instruction in instructions.ToUpper())
+        {
+            switch (instruction)
+            {
+                case 'L':
+                    RotateLeft();
+                    break;
+                case 'R':
+                    RotateRight();
+                    break;
+                case 'M':
+                    MoveForward();
+                    break;
+                case ' ':
+                    break; // Unsure if this is intended, but one of the instruction sets contained a space
+                default:
+                    throw new ArgumentException($"Instruction {instruction} is invalid");
+            }
+        }
+    }
 }

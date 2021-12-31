@@ -38,8 +38,8 @@ namespace RobotWarsTests
         {
             Robot robot = new(startingX, startingY, startingHeading);
 
-            robot.MoveForward();
 
+            robot.MoveForward();
 
 
             Assert.AreEqual(expectedX, robot.X);
